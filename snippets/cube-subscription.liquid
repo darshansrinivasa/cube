@@ -1,0 +1,281 @@
+{%- assign show_price = block.settings.show_price -%}
+{%- assign show_badge = block.settings.show_badge -%}
+{%- assign benefits_list_1 = block.settings.benefits_list_1 -%}
+{%- assign benefits_list_2 = block.settings.benefits_list_2 -%}
+
+{% style %}
+  .cube-subscription-wrapper .subscription-header {
+    background-color: {{ block.settings.recommended_bg }};
+    color: {{ block.settings.recommended_text_color }};
+  }
+  .subscription-variant-description-wrapper .variants-wrapper .variant-container {
+    grid-column: span {{ 12 |  divided_by: product.variants_count }};
+  }
+{% endstyle %}
+
+<cube-subscription class="cube-subscription-wrapper" id="subscription-{{ section_id }}">
+    <div class="subscription-block {% if block.settings.recommended_type == 'type_1' %} active {% endif %}">
+        {% if block.settings.recommended_type == 'type_1' %}
+            <div class="subscription-header">
+                {{ block.settings.recommended_badge_text }}
+            </div>
+        {% endif %}
+
+        <div class="subscription-option single-drink">
+            <span>
+                <input 
+                    type="radio" 
+                    name="purchase_option_{{ section_id }}" 
+                    value="{{ block.settings.subscription_type_1_text | strip_html }}" 
+                    class="subscription-input"
+                    {% if block.settings.recommended_type == 'type_1' %} checked {% endif %}
+                >
+            </span>
+            <div class="drink-title single-drink-title">
+                <span>{{ block.settings.subscription_type_1_text }}</span>
+                {% if show_price %}
+                    <span>
+                        {% render 'cube-price',
+                            product: product, 
+                            is_subscription: true,
+                            is_double: false
+                        %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="subscription-variant-description-wrapper">
+            <div class="subscription-variant-wrapper variant_wrapper">
+                <span class="flavour-text"> Choose Flavour </span>
+                <div class="subscription-variants">
+                    <div class="variants-wrapper">
+                        {% for variant in product.variants %}
+                            {% assign is_checked = false %}
+                            {% if variant.id == product.selected_or_first_available_variant.id %}
+                                {% assign is_checked = true %}
+                            {% endif %}
+                
+                            <div class="variant-container">
+                                <div class="variant-header">
+                                    <input
+                                        type="radio"
+                                        name="subscription_variant_single_{{ section_id }}"
+                                        value="{{ variant.id }}"
+                                        class="variant-radio"
+                                        {% if is_checked %}checked{% endif %}
+                                    >
+                                    <div class="variant-title">
+                                        {{ variant.title }}
+                                    </div>
+                                </div>
+                
+                                <div class="variant-image">
+                                    {% render 'cube-variant-media',
+                                        variant: variant,
+                                        width: '38px'
+                                    %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="subscription-benefits-wrapper">
+                <div class="subscription-benefit-title">
+                    <span> {{ block.settings.whats_included_title }} </span>
+                </div>
+
+                <div class="subscription-included-items">
+                    <div class="included-selected-variant">
+                        <span class="subscription-frequency">{{ block.settings.subsciption_frequency | strip_html }}</span>
+                        <div class="frequency-selected-variant">
+                            {% render 'cube-variant-media',
+                                variant: product.selected_or_first_available_variant,
+                                width: '58px'
+                            %}
+                        </div>
+                    </div>
+
+                    {% if block.settings.give_free_first_time %}
+                        <div class="included-all-variant">
+                            <span>One Time <span class="free-product">(Free)</span></span>
+                            <div class="frequency-all-variants">
+                                {% for variant in product.variants %}
+                                    <div>
+                                        {% render 'cube-variant-media',
+                                            variant: variant,
+                                            width: '58px'
+                                        %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="benefits-list">
+                    {{ benefits_list_1 }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subscription-block {% if block.settings.recommended_type == 'type_2' %} active {% endif %}">
+        {% if block.settings.recommended_type == 'type_2' %}
+            <div class="subscription-header">
+                {{ block.settings.recommended_badge_text }}
+            </div>
+        {% endif %}
+
+        <div class="subscription-option double-drink">
+            <span>
+                <input 
+                    type="radio" 
+                    name="purchase_option_{{ section_id }}" 
+                    value="{{ block.settings.subscription_type_2_text | strip_html }}" 
+                    class="subscription-input"
+                    {% if block.settings.recommended_type == 'type_2' %} checked {% endif %}
+                >
+            </span>
+            <div class="drink-title double-drink-title">
+                <span>{{ block.settings.subscription_type_2_text }}</span>
+                {% if show_price %}
+                    <span>
+                        {% render 'cube-price',
+                            product: product, 
+                            is_subscription: true,
+                            is_double: true
+                        %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="subscription-variant-description-wrapper">
+            <div class="subscription-variant-wrapper variant_wrapper variant_wrapper_1">
+                <span class="flavour-text"> Choose Flavour 1 </span>
+                <div class="subscription-variants">
+                    <div class="variants-wrapper">
+                        {% for variant in product.variants %}
+                            {% assign is_checked = false %}
+                            {% if variant.id == product.selected_or_first_available_variant.id %}
+                                {% assign is_checked = true %}
+                            {% endif %}
+                
+                            <div class="variant-container">
+                                <div class="variant-header">
+                                    <input
+                                        type="radio"
+                                        name="subscription_variant_double_1_{{ section_id }}"
+                                        value="{{ variant.id }}"
+                                        class="variant-radio"
+                                        {% if is_checked %}checked{% endif %}
+                                    >
+                                    <div class="variant-title">
+                                        {{ variant.title }}
+                                    </div>
+                                </div>
+                
+                                <div class="variant-image">
+                                    {% render 'cube-variant-media',
+                                        variant: variant,
+                                        width: '38px'
+                                    %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="subscription-variant-wrapper variant_wrapper_2">
+                <span class="flavour-text"> Choose Flavour 2 </span>
+                <div class="subscription-variants">
+                    <div class="variants-wrapper">
+                        {% for variant in product.variants %}
+                            {% assign is_checked = false %}
+                            {% if variant.id == product.selected_or_first_available_variant.id %}
+                                {% assign is_checked = true %}
+                            {% endif %}
+                
+                            <div class="variant-container">
+                                <div class="variant-header">
+                                    <input
+                                        type="radio"
+                                        name="subscription_variant_double_2_{{ section_id }}"
+                                        value="{{ variant.id }}"
+                                        class="variant-radio"
+                                        {% if is_checked %}checked{% endif %}
+                                    >
+                                    <div class="variant-title">
+                                        {{ variant.title }}
+                                    </div>
+                                </div>
+                
+                                <div class="variant-image">
+                                    {% render 'cube-variant-media',
+                                        variant: variant,
+                                        width: '38px'
+                                    %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="subscription-benefits-wrapper">
+                <div class="subscription-benefit-title">
+                    <span> {{ block.settings.whats_included_title }} </span>
+                </div>
+
+                <div class="subscription-included-items">
+                    <div class="included-selected-variant">
+                        <span class="subscription-frequency">{{ block.settings.subsciption_frequency | strip_html }}</span>
+                        <div class="frequency-selected-variant">
+                            <div class="variant_1_wrapper">
+                                {% render 'cube-variant-media',
+                                    variant: product.selected_or_first_available_variant,
+                                    width: '58px'
+                                %}
+                            </div>
+                            <div class="variant_2_wrapper">
+                                {% render 'cube-variant-media',
+                                    variant: product.selected_or_first_available_variant,
+                                    width: '58px'
+                                %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if block.settings.give_free_first_time %}
+                        <div class="included-all-variant">
+                            <span>One Time <span class="free-product">(Free)</span></span>
+                            <div class="frequency-all-variants">
+                                {% for variant in product.variants %}
+                                    <div>
+                                        {% render 'cube-variant-media',
+                                            variant: variant,
+                                            width: '58px'
+                                        %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="benefits-list">
+                    {{ benefits_list_2 }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/json" data-product-json>
+        {{ product | json }}
+    </script>
+
+    <script src="{{ 'cube-subscription.js' | asset_url }}" defer="defer"></script>
+    {{ 'cube-subscription.css' | asset_url | stylesheet_tag }}
+</cube-subscription>
+  

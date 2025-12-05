@@ -1,0 +1,60 @@
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+
+  {%- assign rating_raw = product.metafields.custom.review_value | default: 0
+    | strip
+    | replace: ",", "."
+    | times: 1
+  -%}
+  {%- assign total_reviews = product.metafields.custom.total_reviews -%}
+  
+  {%- assign full_stars = rating_raw | floor -%}
+  {%- assign decimal = rating_raw | minus: full_stars -%}
+  
+  {%- assign has_half_star = false -%}
+  
+  {%- if decimal >= 0.25 and decimal < 0.75 -%}
+    {%- assign has_half_star = true -%}
+  {%- elsif decimal >= 0.75 -%}
+    {%- assign full_stars = full_stars | plus: 1 -%}
+  {%- endif -%}
+  
+  {%- assign total_shown = full_stars -%}
+  {%- if has_half_star -%}
+    {%- assign total_shown = total_shown | plus: 1 -%}
+  {%- endif -%}
+  
+  {%- assign empty_stars = 5 | minus: total_shown -%}
+  
+  <div class="rating-wrapper">
+  
+    {%- for i in (1..full_stars) -%}
+      <span class="rating-icon full">
+        {{ block.settings.rating_icon }}
+      </span>
+    {%- endfor -%}
+  
+    {%- if has_half_star -%}
+      <span class="rating-icon half">
+        {{ block.settings.rating_icon }}
+      </span>
+    {%- endif -%}
+  
+    {%- for i in (1..empty_stars) -%}
+      <span class="rating-icon empty">
+        {{ block.settings.rating_icon }}
+      </span>
+    {%- endfor -%}
+  
+    <span class="rating-value">
+      {{ rating_raw }}
+    </span>
+
+    {% if total_reviews != blank %}
+        <span class="rating-value">({{ total_reviews }})</span>
+    {% endif %}
+  </div>
+  
+  
+
+
+  

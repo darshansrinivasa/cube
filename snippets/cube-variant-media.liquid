@@ -1,0 +1,34 @@
+{% comment %}
+  Renders a variant image
+
+  Accepts:
+  - variant: {Object} Variant Liquid object 
+  - width: {String} Image width
+
+  Usage:
+  {% render 'cube-variant-media', variant: product.selected_or_first_available_variant %}
+{% endcomment %}
+{% if variant.featured_image %}
+  <img 
+    src="{{ variant.featured_image | image_url: width: 800 }}"
+    alt="{{ variant.featured_image.alt | escape }}"
+    loading="lazy"
+    width= "{{ width }}"
+    height="100%"
+    data-variant-id="{{ variant.id }}"
+  >
+{% else %}
+  {# fallback to product image #}
+  {% if variant.product.featured_image %}
+    <img 
+      src="{{ variant.product.featured_image | image_url: width: 800 }}"
+      alt="{{ variant.product.featured_image.alt | escape }}"
+      loading="lazy"
+      width= "{{ width }}"
+      height="100%"
+      data-variant-id="{{ variant.id }}"
+    >
+  {% endif %}
+{% endif %}
+
+  

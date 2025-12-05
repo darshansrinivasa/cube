@@ -7,34 +7,34 @@
   margin: 0;
 }
 
-.product .rating-star {
-  --letter-spacing: 0.8;
-  --font-size: 1.7;
-}
-
-.card-wrapper .rating-star {
-  --letter-spacing: 0.7;
-  --font-size: 1.4;
-}
-
 .rating-star {
   --color-rating-star: rgb(var(--color-foreground));
   --percent: calc(
     (
-        var(--rating) / var(--rating-max) + var(--rating-decimal) * var(--font-size) /
-          (var(--rating-max) * (var(--letter-spacing) + var(--font-size)))
-      ) * 100%
+      var(--rating) / var(--rating-max)
+      + var(--rating-decimal) * var(--font-size) /
+        (var(--rating-max) * (var(--letter-spacing) + var(--font-size)))
+    ) * 100%
   );
+
+  /* Controls star spacing & size */
+  --letter-spacing: 0.8;
+  --font-size: 1.7;
+
   letter-spacing: calc(var(--letter-spacing) * 1rem);
   font-size: calc(var(--font-size) * 1rem);
+
   line-height: 1;
   display: inline-block;
-  font-family: Times;
   margin: 0;
+
+  /* Allow dynamic custom icon */
+  font-family: inherit;
 }
 
+/* Injecting custom star icons dynamically */
 .rating-star::before {
-  content: '★★★★★';
+  content: var(--stars);
   background: linear-gradient(
     90deg,
     var(--color-rating-star) var(--percent),
@@ -44,15 +44,15 @@
   -webkit-text-fill-color: transparent;
 }
 
-.rating-text {
-  display: none;
-}
-
+/* Rating count next to stars */
 .rating-count {
   display: inline-block;
-  margin: 0;
+  margin-left: 6px;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
+/* Accessibility fallback */
 @media (forced-colors: active) {
   .rating {
     display: none;
@@ -61,4 +61,46 @@
   .rating-text {
     display: block;
   }
+}
+
+.rating-icon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  position: relative;
+  color: #fff; 
+  overflow: hidden;
+}
+
+.rating-icon svg,
+.rating-icon span {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* FULL STAR */
+.rating-icon.full {
+  color: #FFD700; /* gold */
+}
+
+/* HALF STAR */
+.rating-icon.half {
+  color: #FFD700;
+}
+
+.rating-icon.half::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%; 
+  height: 100%;
+  background: #fff; 
+  z-index: 2;
+}
+
+/* EMPTY STAR */
+.rating-icon.empty {
+  color: #fff;
 }

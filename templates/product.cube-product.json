@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cube-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "rating_icon": "<svg width=\"13\" height=\"12\" viewbox=\"0 0 13 12\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M6.23234 0L7.7036 4.52807H12.4647L8.61289 7.32657L10.0841 11.8546L6.23234 9.05614L2.38054 11.8546L3.8518 7.32657L-9.05991e-06 4.52807H4.76108L6.23234 0Z\" fill=\"black\"></path>\n</svg>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "subscription": {
+          "type": "subscription",
+          "settings": {
+            "recommended_badge_text": "Recommended",
+            "recommended_bg": "#A2845E",
+            "recommended_text_color": "#ffffff",
+            "subscription_type_1_text": "{{ product.metafields.custom.single_drink_subscription.value }}",
+            "subscription_type_2_text": "{{ product.metafields.custom.double_drink_subscription.value }}",
+            "recommended_type": "type_1",
+            "show_price": true,
+            "show_badge": true,
+            "give_free_first_time": true,
+            "whats_included_title": "<p>What's Included:</p>",
+            "subsciption_frequency": "<p>{{ product.metafields.custom.subscription_frequency.value }}</p>",
+            "benefits_list_1": "{{ product.metafields.custom.single_drink_subscription_benefits | metafield_tag }}",
+            "benefits_list_2": "{{ product.metafields.custom.double_drink_subscription_benefits | metafield_tag }}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "description",
+        "subscription",
+        "buy_buttons"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

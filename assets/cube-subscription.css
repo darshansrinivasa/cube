@@ -1,0 +1,161 @@
+cube-subscription {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.cube-subscription-wrapper .subscription-block {
+    border-radius: 1.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(184, 184, 184, 1);
+}
+.cube-subscription-wrapper .subscription-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.1rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.cube-subscription-wrapper .subscription-option {
+    padding: 1.5rem 3rem 1.5rem 2.0rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    cursor: pointer;
+}
+.cube-subscription-wrapper .subscription-option input,
+.cube-subscription-wrapper .variant-container input {
+    accent-color: rgba(0,0,0,1);
+}
+.cube-subscription-wrapper .price-item.price-item--sale {
+    font-size: 2rem;
+    font-weight: 700;
+}
+.cube-subscription-wrapper .price-item.price-item--regular {
+    font-size: 2rem;
+    color: rgba(184, 184, 184, 1);
+    font-weight: 300;
+}
+.cube-subscription-wrapper .subscription-block .subscription-variant-description-wrapper {
+    height: 0;
+}
+.cube-subscription-wrapper .subscription-block.active .subscription-variant-description-wrapper {
+    height: auto;
+}
+.cube-subscription-wrapper .drink-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+}
+.subscription-variant-wrapper {
+    margin: 0 3rem 0 5rem;
+    padding: 1.8rem 0 1.0rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.subscription-variant-wrapper.variant_wrapper {
+    border-top: 1px solid rgba(184, 184, 184, 1);
+}
+.subscription-benefits-wrapper {
+    padding: 0.8rem 5rem 5.5rem;
+}
+.subscription-benefits-wrapper .benefits-list {
+    padding: 1.0rem 0;
+}
+.subscription-benefits-wrapper .benefits-list ul {
+    padding: 0;
+    margin: 0;
+}
+.subscription-benefits-wrapper .benefits-list ul li {
+    position: relative;
+    padding-left: 1.8rem;
+    list-style: none;
+}
+.subscription-benefits-wrapper .benefits-list ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.0rem;
+    width: 1.2rem;  
+    height: 0.8rem; 
+    background-image: url('https://cdn.shopify.com/s/files/1/0720/5168/7590/files/Vector_1.png?v=1764928673');
+    background-size: contain; 
+    background-repeat: no-repeat;
+}
+.subscription-option .price__sale {
+    display: flex;
+    align-items: center;
+    gap: 1.0rem;
+}
+.subscription-variant-description-wrapper .subscription-included-items {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.6rem;
+}
+.included-selected-variant {
+    grid-column: span 4;
+}
+.included-all-variant {
+    grid-column: span 8;
+}
+.included-selected-variant,
+.included-all-variant {
+    border: 1px solid rgba(184, 184, 184, 1);
+    border-radius: 16px;
+    padding: 0.8rem 1.2rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.included-all-variant span,
+.included-selected-variant span {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: rgba(111, 117, 119, 1);
+}
+.included-all-variant .free-product {
+    color: rgba(208, 175, 128, 1);
+    font-weight: 700;
+}
+.subscription-included-items .frequency-selected-variant,
+.subscription-included-items .frequency-all-variants > div,
+.subscription-variant-description-wrapper .variants-wrapper .variant-container .variant-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.subscription-included-items .frequency-all-variants {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.8rem;
+}
+.subscription-included-items .frequency-all-variants > div {
+    grid-column: span 4;
+}
+.subscription-variant-description-wrapper .variants-wrapper {
+    display: flex;
+    gap: 1.2rem;
+}
+.subscription-variant-description-wrapper .variants-wrapper .variant-container {
+    min-width: 12.8rem;
+    background: rgba(249, 249, 249, 1);
+    border-radius: 1.6rem;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+.subscription-variant-description-wrapper .variants-wrapper .variant-header {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.subscription-variant-description-wrapper .variants-wrapper .variant-title {
+    font-size: 14px;
+    font-weight: 300;
+}

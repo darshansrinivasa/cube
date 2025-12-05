@@ -295,13 +295,14 @@ h5,
 
 h1,
 .h1 {
-  font-size: calc(var(--font-heading-scale) * 3rem);
+  font-size: calc(var(--font-heading-scale) * 3.2rem);
+  font-weight: 700;
 }
 
 @media only screen and (min-width: 750px) {
   h1,
   .h1 {
-    font-size: calc(var(--font-heading-scale) * 4rem);
+    font-size: calc(var(--font-heading-scale) * 3.6rem);
   }
 }
 
@@ -1227,7 +1228,7 @@ button.shopify-payment-button__button--unbranded {
   background-color: rgba(var(--color-button), var(--alpha-button-background));
 }
 
-.button:before,
+.button:not(.product-form__submit):before,
 .shopify-challenge__button:before,
 .customer button:before,
 .shopify-payment-button__button--unbranded:before {
@@ -1243,7 +1244,7 @@ button.shopify-payment-button__button--unbranded {
     rgba(var(--color-shadow), var(--shadow-opacity));
 }
 
-.button:after,
+.button:not(.product-form__submit):after,
 .shopify-challenge__button:after,
 .customer button:after,
 .shopify-payment-button__button--unbranded:after {

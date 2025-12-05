@@ -1,0 +1,4 @@
+{% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+<div class="grid__item product__media-wrapper">
+    {% render 'product-media-gallery', variant_images: variant_images %}
+</div>
