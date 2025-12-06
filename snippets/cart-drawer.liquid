@@ -154,26 +154,8 @@
                             {{- item.product.title | escape -}}
                           </a>
 
-                          {%- if item.original_price != item.final_price -%}
-                            <div class="cart-item__discounted-prices">
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.regular_price' | t }}
-                              </span>
-                              <s class="cart-item__old-price product-option">
-                                {{- item.original_price | money -}}
-                              </s>
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.sale_price' | t }}
-                              </span>
-                              <strong class="cart-item__final-price product-option">
-                                {{ item.final_price | money }}
-                              </strong>
-                            </div>
-                          {%- else -%}
-                            <div class="product-option">
-                              {{ item.original_price | money }}
-                            </div>
-                          {%- endif -%}
+                          {% comment %} new snippet to calculate subscription price for subscription products {% endcomment %}
+                          {% render 'cube-cart-subscription-per-price', item: item %}
 
                           {%- if item.product.has_only_default_variant == false
                             or item.properties.size != 0
@@ -192,7 +174,7 @@
                                 {%- endfor -%}
                               {%- endif -%}
 
-                              {%- for property in item.properties -%}
+                              {% comment %} {%- for property in item.properties -%}
                                 {%- assign property_first_char = property.first | slice: 0 -%}
                                 {%- if property.last != blank and property_first_char != '_' -%}
                                   <div class="product-option">
@@ -213,7 +195,7 @@
                                     </dd>
                                   </div>
                                 {%- endif -%}
-                              {%- endfor -%}
+                              {%- endfor -%} {% endcomment %}
                             </dl>
 
                             <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
@@ -236,26 +218,8 @@
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
                           {%- render 'loading-spinner' -%}
                           <div class="cart-item__price-wrapper">
-                            {%- if item.original_line_price != item.final_line_price -%}
-                              <div class="cart-item__discounted-prices">
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </span>
-                                <s class="cart-item__old-price price price--end">
-                                  {{ item.original_line_price | money }}
-                                </s>
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </span>
-                                <span class="price price--end">
-                                  {{ item.final_line_price | money }}
-                                </span>
-                              </div>
-                            {%- else -%}
-                              <span class="price price--end">
-                                {{ item.original_line_price | money }}
-                              </span>
-                            {%- endif -%}
+                              {% comment %} new snippet to calculate subscription total price for subscription products {% endcomment %}
+                              {% render 'cube-cart-subscription-total-price', item: item %}
 
                             {%- if item.variant.available and item.unit_price_measurement -%}
                               {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
@@ -515,7 +479,9 @@
 
           <div class="totals" role="status">
             <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+            {% comment %} <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p> {% endcomment %}
+             {% comment %} new snippet to calculate subscription order total price for subscription products {% endcomment %}
+             {% render 'cube-cart-subscription-order-total-price', cart: cart %}
           </div>
 
           <small class="tax-note caption-large rte">

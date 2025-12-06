@@ -1,0 +1,60 @@
+{% assign is_subscription = item.properties.is_subscription %}
+{% assign sub_discount = item.properties.subscription_discount | times: 0.01 %}
+
+{% assign compare_at = item.variant.compare_at_price %}
+{% assign selling = item.variant.price %}
+{% assign qty = item.quantity %}
+
+{% assign final_price = selling %}
+{% assign final_line_price = selling | times: qty %}
+
+{% if is_subscription == "true" and sub_discount > 0 and compare_at > 0 %}
+
+  {% assign subscription_discount_amt = compare_at | times: sub_discount %}
+  {% assign subscription_price = compare_at | minus: subscription_discount_amt %}
+
+  {% assign sale_diff = compare_at | minus: selling %}
+  {% if sale_diff > 0 %}
+    {% assign sale_percent = sale_diff | times: 100 | divided_by: compare_at %}
+    {% assign sale_percent_decimal = sale_percent | divided_by: 100.0 %}
+    {% assign sale_discount_amt = subscription_price | times: sale_percent_decimal %}
+    {% assign final_price = subscription_price | minus: sale_discount_amt %}
+  {% else %}
+    {% assign final_price = subscription_price %}
+  {% endif %}
+
+  {% assign final_line_price = final_price | times: qty %}
+
+  <dl class="cart-item__discounted-prices">
+    <dt class="visually-hidden">Sale price</dt>
+    <dd class="price price--end">
+      {{ final_line_price | money }}
+    </dd>
+
+    <dt class="visually-hidden">Regular price</dt>
+    <dd>
+      <s class="cart-item__old-price price price--end">
+        {{ compare_at | times: qty | money_without_trailing_zeros }}
+      </s>
+    </dd>
+  </dl>
+
+{% else %}
+  {% if item.original_line_price != item.final_line_price %}
+    <dl class="cart-item__discounted-prices">
+      <dd>
+        <s class="cart-item__old-price price price--end">
+          {{ item.original_line_price | money }}
+        </s>
+      </dd>
+      <dd class="price price--end">
+        {{ item.final_line_price | money }}
+      </dd>
+    </dl>
+  {% else %}
+    <span class="price price--end">
+      {{ item.original_line_price | money }}
+    </span>
+  {% endif %}
+
+{% endif %}

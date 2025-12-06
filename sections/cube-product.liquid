@@ -29,6 +29,8 @@ cube-product-info {
     {% if section.settings.image_zoom == 'hover' %}
       data-zoom-on-hover
     {% endif %}
+    data-subscription-product="{{ product.metafields.custom.subscription_product.value }}"
+    data-subscription_discount ="{{ product.metafields.custom.subscription_discount_value.value }}"
   >
 
     <div class="page-width">

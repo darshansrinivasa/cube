@@ -1,0 +1,29 @@
+{% assign custom_total = 0 %}
+
+{% for item in cart.items %}
+  {% assign price = item.final_line_price %}
+  {% if item.properties.is_subscription == "true" %}
+    {% assign compare_at = item.variant.compare_at_price | divided_by: 100 %}
+    {% assign sell = item.variant.price | divided_by: 100 %}
+    
+    {% assign subscription_discount = item.properties.subscription_discount | times: 0.01 %}
+    {% assign base_sub_price = compare_at | times: subscription_discount %}
+    {% assign after_subscription = compare_at | minus: base_sub_price %}
+
+    {% assign sale_diff = compare_at | minus: sell %}
+    {% assign sale_percent = sale_diff | times: 100 | divided_by: compare_at %}
+    {% assign sale_percent = sale_percent | divided_by: 100.0 %}
+
+    {% assign price_before = after_subscription | times: sale_percent %}
+    {% assign after_sell_discount = after_subscription | minus: price_before %}
+
+    {% assign final_price = after_sell_discount | times: item.quantity %}
+    {% assign price = final_price | times: 100 %}
+  {% endif %}
+
+  {% assign custom_total = custom_total | plus: price %}
+{% endfor %}
+<p class="totals__total-value">
+    {{ custom_total | money }}
+</p>
+  

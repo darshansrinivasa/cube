@@ -1,3 +1,6 @@
+cube-product-info .product__info-wrapper {
+    padding: 0;
+}
 cube-subscription {
     display: flex;
     flex-direction: column;
@@ -17,7 +20,7 @@ cube-subscription {
     font-weight: 700;
 }
 .cube-subscription-wrapper .subscription-option {
-    padding: 1.5rem 3rem 1.5rem 2.0rem;
+    padding: 1.5rem 2.0rem;
     display: flex;
     gap: 1.2rem;
     align-items: center;
@@ -28,11 +31,12 @@ cube-subscription {
     accent-color: rgba(0,0,0,1);
 }
 .cube-subscription-wrapper .price-item.price-item--sale {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
+    margin: 0;
 }
 .cube-subscription-wrapper .price-item.price-item--regular {
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: rgba(184, 184, 184, 1);
     font-weight: 300;
 }
@@ -50,7 +54,7 @@ cube-subscription {
     width: 100%;
 }
 .subscription-variant-wrapper {
-    margin: 0 3rem 0 5rem;
+    margin: 0 2rem 0 2rem;
     padding: 1.8rem 0 1.0rem;
     display: flex;
     flex-direction: column;
@@ -60,7 +64,7 @@ cube-subscription {
     border-top: 1px solid rgba(184, 184, 184, 1);
 }
 .subscription-benefits-wrapper {
-    padding: 0.8rem 5rem 5.5rem;
+    padding: 0.8rem 2rem 2.5rem;
 }
 .subscription-benefits-wrapper .benefits-list {
     padding: 1.0rem 0;
@@ -89,6 +93,7 @@ cube-subscription {
     display: flex;
     align-items: center;
     gap: 1.0rem;
+    flex-wrap: nowrap;
 }
 .subscription-variant-description-wrapper .subscription-included-items {
     display: grid;
@@ -96,16 +101,16 @@ cube-subscription {
     gap: 1.6rem;
 }
 .included-selected-variant {
-    grid-column: span 4;
+    grid-column: span 12;
 }
 .included-all-variant {
-    grid-column: span 8;
+    grid-column: span 12;
 }
 .included-selected-variant,
 .included-all-variant {
     border: 1px solid rgba(184, 184, 184, 1);
     border-radius: 16px;
-    padding: 0.8rem 1.2rem 2.2rem;
+    padding: 0.8rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -129,6 +134,9 @@ cube-subscription {
     width: 100%;
     height: 100%;
 }
+.subscription-included-items .frequency-selected-variant {
+    gap: 2rem;
+}
 .subscription-included-items .frequency-all-variants {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -139,6 +147,7 @@ cube-subscription {
 }
 .subscription-variant-description-wrapper .variants-wrapper {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.2rem;
 }
 .subscription-variant-description-wrapper .variants-wrapper .variant-container {
@@ -158,4 +167,33 @@ cube-subscription {
 .subscription-variant-description-wrapper .variants-wrapper .variant-title {
     font-size: 14px;
     font-weight: 300;
+}
+
+
+@media screen and (min-width: 480px) {
+    .included-selected-variant {
+        grid-column: span 4;
+    }
+    .included-all-variant {
+        grid-column: span 8;
+    }
+}
+@media screen and (min-width: 750px) {
+    .cube-subscription-wrapper .subscription-option {
+        padding: 1.5rem 3rem 1.5rem 2.0rem;
+    }
+    .subscription-benefits-wrapper {
+        padding: 0.8rem 5rem 5.5rem;
+    }
+    .subscription-variant-wrapper {
+        margin: 0 3rem 0 5rem;
+        padding: 1.8rem 0 1.0rem;
+    }
+    .cube-subscription-wrapper .price-item.price-item--sale,
+    .cube-subscription-wrapper .price-item.price-item--regular {
+        font-size: 2rem;
+    }
+    .included-selected-variant, .included-all-variant {
+        padding: .8rem 1.2rem 2.2rem;
+    }
 }

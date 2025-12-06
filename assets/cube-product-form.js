@@ -7,6 +7,8 @@ if (!customElements.get('cube-product-info')) {
         }
   
         connectedCallback() {
+          this.subscriptionEnabled = this.dataset?.subscriptionProduct === 'true';
+          this.subscriptionDiscount = parseFloat(this.querySelector(".price__container")?.dataset.subscriptionValue || 0);
           this.subscriptionEl = this.querySelector('cube-subscription');
           this.addToCartBtn = this.querySelector('[data-add-to-cart]');
           
@@ -61,85 +63,29 @@ if (!customElements.get('cube-product-info')) {
             { id: variant2.value }
           ];
   
-          this.addToCart(items);
+          this.addToCart(items, 'double');
         }
 
-        // addToCart(items) {
-        //   this.toggleLoading(true);
-        //   this.hideError();
-        
-        //   const formData = {
-        //     items: items.map(v => ({
-        //       id: v.id,
-        //       quantity: v.quantity || 1
-        //     }))
-        //   };
-        
-        //   const sectionsToRender = this.cart?.getSectionsToRender() || [];
-        //   console.log('render:', sectionsToRender)
-        //   const sectionIds = sectionsToRender.map(s => s.id);
-        //   console.log("ids:", sectionIds)
-        
-        //   const config = {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //       'X-Requested-With': 'XMLHttpRequest'
-        //     },
-        //     body: JSON.stringify({
-        //       ...formData,
-        //       sections: sectionsToRender.map(s => s.id),
-        //       sections_url: window.location.pathname
-        //     })
-        //   };
-        
-        //   fetch(`${window.Shopify.routes.root}cart/add.js`, config)
-        //     .then(res => res.json())
-        //     .then(response => {
-        
-        //       if (response.status) {
-        //         this.showError(response.message || "Unable to add to cart.");
-        //         return;
-        //       }
-        
-        //       /* 🔥 Required so Dawn updates header bubble */
-        //       publish(PUB_SUB_EVENTS.cartUpdate, {
-        //         source: 'cube-subscription',
-        //         productVariantId: items[0].id,
-        //         cartData: response
-        //       });
-        
-        //       /* 🔥 REQUIRED: This opens the drawer */
-        //       if (this.cart) {
-        //         this.cart.renderContents(response);
-        //       }
-        
-        //       if (!this.cart) {
-        //         window.location = window.routes.cart_url;
-        //       }
-        //     })
-        //     .catch(err => {
-        //       console.error(err);
-        //       this.showError("Something went wrong.");
-        //     })
-        //     .finally(() => {
-        //       this.toggleLoading(false);
-        //     });
-        // }
-        
-        addToCart(items) {
+        addToCart(items, subscriptionType = 'single') {
           this.toggleLoading(true);
           this.hideError();
         
           const formData = new FormData();
-          
-          // Append all items dynamically
+
           items.forEach((item, index) => {
             formData.append(`items[${index}][id]`, item.id);
             formData.append(`items[${index}][quantity]`, item.quantity || 1);
+
+            if (this.subscriptionEnabled) {
+              formData.append(`items[${index}][properties][is_subscription]`, 'true');
+              formData.append(`items[${index}][properties][subscription_type]`, subscriptionType);
+              formData.append(`items[${index}][properties][subscription_discount]`, this.subscriptionDiscount);
+            } else {
+              formData.append(`items[${index}][properties][is_subscription]`, 'false');
+            }
+            
           });
         
-          // Attach sections for theme cart drawer to update
           if (this.cart) {
             const sections = this.cart.getSectionsToRender().map(s => s.id);
             formData.append('sections', sections);

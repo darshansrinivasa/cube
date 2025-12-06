@@ -83,7 +83,6 @@ class CubeSubscription extends HTMLElement {
       if (!productDataEl) return;
       
       const productData = JSON.parse(productDataEl.textContent);
-      console.log(productData);
       const variantData = productData.variants.find(v => v.id == variantId);
   
       this.updateVariantImage(parentBlock, variantData, group);

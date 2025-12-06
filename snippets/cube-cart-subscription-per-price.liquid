@@ -1,0 +1,50 @@
+{% assign is_subscription = item.properties.is_subscription %}
+{% assign sub_discount = item.properties.subscription_discount | times: 0.01 %}
+
+{% assign compare_at = item.variant.compare_at_price %}
+{% assign selling = item.variant.price %}
+
+{% assign final_price = selling %}
+
+{% if is_subscription == "true" and sub_discount > 0 and compare_at > 0 %}
+  {% assign subscription_discount_amt = compare_at | times: sub_discount %}
+  {% assign subscription_price = compare_at | minus: subscription_discount_amt %}
+  {% assign sale_diff = compare_at | minus: selling %}
+  {% if sale_diff > 0 %}
+    {% assign sale_percent = sale_diff | times: 100 | divided_by: compare_at %}
+    {% assign sale_percent_decimal = sale_percent | divided_by: 100.0 %}
+
+    {% assign sale_discount_amt = subscription_price | times: sale_percent_decimal %}
+    {% assign final_price = subscription_price | minus: sale_discount_amt %}
+  {% else %}
+    {% assign final_price = subscription_price %}
+  {% endif %}
+
+  <div class="cart-item__discounted-prices">
+    <span class="visually-hidden">Sale price</span>
+    <strong class="cart-item__final-price product-option">
+        {{ final_price | money }}
+    </strong>
+
+    <span class="visually-hidden">Regular price</span>
+    <s class="cart-item__old-price product-option">
+        {{ compare_at | money_without_trailing_zeros }}
+    </s>
+  </div>
+
+{% else %}
+  {% if item.original_price != item.final_price %}
+    <div class="cart-item__discounted-prices">
+      <s class="cart-item__old-price product-option">
+        {{ item.original_price | money }}
+      </s>
+      <strong class="cart-item__final-price product-option">
+        {{ item.final_price | money }}
+      </strong>
+    </div>
+  {% else %}
+    <div class="product-option">
+      {{ item.original_price | money }}
+    </div>
+  {% endif %}
+{% endif %}
