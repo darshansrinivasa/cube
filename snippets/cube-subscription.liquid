@@ -57,6 +57,12 @@
                             {% endif %}
                 
                             <div class="variant-container">
+                                {% assign variant_badge = variant.metafields.custom.badge.value %}
+                                {% if variant_badge != blank %}
+                                    <div class="variant-badge">
+                                        {{ variant_badge }}
+                                    </div>
+                                {% endif %}
                                 <div class="variant-header">
                                     <input
                                         type="radio"
@@ -164,6 +170,12 @@
                             {% endif %}
                 
                             <div class="variant-container">
+                                {% assign variant_badge = variant.metafields.custom.badge.value %}
+                                {% if variant_badge != blank %}
+                                    <div class="variant-badge">
+                                        {{ variant_badge }}
+                                    </div>
+                                {% endif %}
                                 <div class="variant-header">
                                     <input
                                         type="radio"
@@ -199,6 +211,12 @@
                             {% endif %}
                 
                             <div class="variant-container">
+                                {% assign variant_badge = variant.metafields.custom.badge.value %}
+                                {% if variant_badge != blank %}
+                                    <div class="variant-badge">
+                                        {{ variant_badge }}
+                                    </div>
+                                {% endif %}
                                 <div class="variant-header">
                                     <input
                                         type="radio"
