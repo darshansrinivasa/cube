@@ -23,7 +23,7 @@ product-info {
   .product__column-sticky {
     display: block;
     position: sticky;
-    top: 3rem;
+    top: 10rem;
     z-index: 2;
   }
 
@@ -189,7 +189,7 @@ product-info {
   right: 1.5rem;
 }
 
-.product-form__submit {
+cube-product-info .product-form__submit {
   background-color: rgb(var(--color-button-text));
   color: rgba(var(--color-button), var(--alpha-button-background));
   border-radius: 100px;

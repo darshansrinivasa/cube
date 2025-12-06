@@ -81,8 +81,9 @@ class CubeSubscription extends HTMLElement {
   
       const productDataEl = this.querySelector('script[data-product-json]');
       if (!productDataEl) return;
-  
+      
       const productData = JSON.parse(productDataEl.textContent);
+      console.log(productData);
       const variantData = productData.variants.find(v => v.id == variantId);
   
       this.updateVariantImage(parentBlock, variantData, group);
@@ -115,44 +116,6 @@ class CubeSubscription extends HTMLElement {
         }
       }
     }
-
-    // updateVariantPrice(parentBlock, variantData) {
-    //     const salePriceEl = parentBlock.querySelector('.price-item--sale');
-    //     const comparePriceEl = parentBlock.querySelector('.price-item--regular');
-    //     const priceContainer = parentBlock.querySelector('.price__container');
-      
-    //     if (!salePriceEl || !priceContainer) return;
-      
-    //     const subDiscountRaw = parseFloat(priceContainer.dataset.subscriptionValue || 0);
-    //     const subDiscount = subDiscountRaw / 100;
-    //     const price = variantData.price;
-    //     const compareAt = variantData.compare_at_price;
-      
-    //     if (!subDiscount || !compareAt) {
-    //       salePriceEl.textContent = this.formatMoney(price, 2);
-    //       if (comparePriceEl) {
-    //         comparePriceEl.style.display = compareAt > price ? 'inline' : 'none';
-    //         if (compareAt > price) comparePriceEl.textContent = this.formatMoney(compareAt, 0);
-    //       }
-    //       return;
-    //     }
-
-    //     const subscriptionBaseDiscount = compareAt * subDiscount;
-    //     const subscriptionPrice = compareAt - subscriptionBaseDiscount;
-    //     const saleDifference = compareAt - price;
-    //     const salePercent = saleDifference > 0 ? saleDifference / compareAt : 0;
-    //     const finalPrice = subscriptionPrice - (subscriptionPrice * salePercent);
-    //     salePriceEl.textContent = this.formatMoney(finalPrice, 2);
-
-    //     if (comparePriceEl) {
-    //       if (compareAt > price) {
-    //         comparePriceEl.textContent = this.formatMoney(compareAt, 0);
-    //         comparePriceEl.style.display = 'inline';
-    //       } else {
-    //         comparePriceEl.style.display = 'none';
-    //       }
-    //     }
-    // }
   
     updateVariantPrice(parentBlock, productData, variantData, group) {
         const salePriceEl = parentBlock.querySelector('.price-item--sale');
@@ -224,7 +187,6 @@ class CubeSubscription extends HTMLElement {
         const finalPrice = subscriptionPrice - (subscriptionPrice * salePercent);
         return finalPrice;
     }
-
     
     formatMoney(amount, trailingZeroes) {
       return new Intl.NumberFormat("en-US", {
