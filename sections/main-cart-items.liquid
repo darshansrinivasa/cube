@@ -181,8 +181,14 @@
                         assign has_vol_pricing = true
                       endif
                     -%}
+                    {% assign is_double = false %}
+                        {% for property in item.properties %}
+                          {%- if property.first == 'subscription_type' and property.last == 'double' -%}
+                            {% assign is_double = true %}
+                          {% endif %}
+                        {% endfor %}
                     <td class="cart-item__quantity{% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}">
-                      <quantity-popover>
+                      <quantity-popover {% if is_double %} class="subscription-product" {% endif %} >
                         <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                           <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
                             {{ 'products.product.quantity.label' | t }}

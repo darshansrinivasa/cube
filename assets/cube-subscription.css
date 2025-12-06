@@ -196,4 +196,7 @@ cube-subscription {
     .included-selected-variant, .included-all-variant {
         padding: .8rem 1.2rem 2.2rem;
     }
+    .subscription-included-items .frequency-selected-variant {
+        gap: 0rem;
+    }
 }
