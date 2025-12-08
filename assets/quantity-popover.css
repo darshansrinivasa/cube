@@ -167,6 +167,6 @@ quantity-popover .quantity__input:not(:focus-visible):not(.focused) {
   background-color: initial;
 }
 
-quantity-popover.subscription-product {
-  display: none;
+.quantity-popover-wrapper.double-drink-product {
+  /* display: none; */
 }
